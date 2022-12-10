@@ -1,0 +1,42 @@
+
+npm init ->package.json
+
+npm i express ->package-lock.json,node modules
+
+npm install -g nodemon ->to skip reloading manually 
+
+run nodemon index.js
+
+
+
+
+
+basic steps
+
+
+1.creating a folder(bank server)
+
+2.creating package.json File
+
+3.install express
+
+4.import express inside the index.js File
+
+5.create an app using express
+
+6.setup port node
+
+7.resolving http request
+
+
+
+8.HTTP Respose code
+
+    1xx-information
+    2xx-successful
+    3xx-rediretion
+    4xx-client error
+    5xx-server error
+9.JWT Token
+ install JWT Token -npm i jsonwebtoken
+ to generate Token -sign()
