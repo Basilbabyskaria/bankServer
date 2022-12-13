@@ -38,5 +38,11 @@ basic steps
     4xx-client error
     5xx-server error
 9.JWT Token
- install JWT Token -npm i jsonwebtoken
- to generate Token -sign()
+    install JWT Token -npm i jsonwebtoken
+    to generate Token -sign()
+
+10.middleware
+    req,res,next
+
+    1.application sepecific -for entire applicatiom
+    2.router sepecific middleware
