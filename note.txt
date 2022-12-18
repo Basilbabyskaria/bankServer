@@ -7,6 +7,8 @@ npm install -g nodemon ->to skip reloading manually
 
 run nodemon index.js
 
+instal mongoose ->npm i mongoose
+
 
 
 
@@ -46,3 +48,8 @@ basic steps
 
     1.application sepecific -for entire applicatiom
     2.router sepecific middleware
+
+
+   Database integration
+    
+    1.instal mongoose ->npm i mongoose

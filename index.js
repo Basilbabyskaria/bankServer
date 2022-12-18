@@ -68,24 +68,39 @@ const jwtMiddleware =(req,res,next)=>{
 
 
 //2
+//** 
+// app.post('/register',(req,res)=>{
+//     console.log(req.body);
+//    const result = dataservices.register(req.body.acno,req.body.uname,req.body.pswd)
+// //    if(result) {
+// //    res.send('register success')
+// //    }else{
+// //     res.send('user allreadt registered')
+// //    }
+// res.status(result.statusCode).json(result)
+    
+// })
+//mongo db
+
 app.post('/register',(req,res)=>{
     console.log(req.body);
-   const result = dataservices.register(req.body.acno,req.body.uname,req.body.pswd)
-//    if(result) {
-//    res.send('register success')
-//    }else{
-//     res.send('user allreadt registered')
-//    }
-res.status(result.statusCode).json(result)
+   dataservices.register(req.body.acno,req.body.uname,req.body.pswd)
+   .then(result=>{
+    res.status(result.statusCode).json(result)
+   })
     
 })
+
 
 //3
 app.post('/login',(req,res)=>{
     console.log(req.body);
    const result = dataservices.login(req.body.acno,req.body.pswd)
-    res.status(result.statusCode).json(result)
     // res.send('login success')
+   .then(result=>{
+    res.status(result.statusCode).json(result)
+
+   })
     
 })
 
