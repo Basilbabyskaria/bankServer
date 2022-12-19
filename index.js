@@ -95,7 +95,7 @@ app.post('/register',(req,res)=>{
 //3
 app.post('/login',(req,res)=>{
     console.log(req.body);
-   const result = dataservices.login(req.body.acno,req.body.pswd)
+   dataservices.login(req.body.acno,req.body.pswd)
     // res.send('login success')
    .then(result=>{
     res.status(result.statusCode).json(result)
@@ -106,23 +106,29 @@ app.post('/login',(req,res)=>{
 
 app.post('/deposit',jwtMiddleware,(req,res)=>{
     console.log(req.body);
-   const result = dataservices.deposit(req.body.acno,req.body.pswd,req.body.amount)
+   dataservices.deposit(req.body.acno,req.body.pswd,req.body.amount)
+    .then(result=>{
     res.status(result.statusCode).json(result)
-    // res.send('login success')
+
+    })    
     
 })
 
 app.post('/withdraw',jwtMiddleware,(req,res)=>{
     console.log(req.body);
-   const result = dataservices.withdraw(req.body.acno,req.body.pswd,req.body.amount1)
+   dataservices.withdraw(req.body.acno,req.body.pswd,req.body.amount1)
+   .then(result=>{
     res.status(result.statusCode).json(result)
+   })
     // res.send('login success')
     
 })
 app.post('/transaction',jwtMiddleware,(req,res)=>{
     console.log(req.body);
-   const result = dataservices.getTransaction(req.body.acno)
-    res.status(result.statusCode).json(result)
+   dataservices.getTransaction(req.body.acno)
+   .then(result=>{
+   res.status(result.statusCode).json(result)
+   })
     // res.send('login success')
     
 })

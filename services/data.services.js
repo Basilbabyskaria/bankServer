@@ -4,9 +4,9 @@
  const db=require('./db')
 
 accDetails={
-    1000:{acno:1000,pswd:1000,uname:'enjoyal',transaction:[],bal:100},
-    1001:{acno:1001,pswd:1001,uname:'akhil',transaction:[]  ,bal:100},
-    1002:{acno:1002,pswd:1003,uname:'enjoyal',transaction:[],bal:100},
+    1000:{acno:1000,pswd:1000,uname:'enjoyal',transaction:[],balance:100},
+    1001:{acno:1001,pswd:1001,uname:'akhil',transaction:[]  ,balance:100},
+    1002:{acno:1002,pswd:1003,uname:'enjoyal',transaction:[],balance:100},
 }
 // register=(acno,uname,pswd)=>{
 //   if(acno in accDetails){
@@ -22,7 +22,7 @@ accDetails={
 //       acno:acno,
 //       uname:uname,
 //       pswd:pswd,
-//       bal:0,
+//       balance:0,
 //       transaction:[]
 //     }
 //     // return true;
@@ -50,7 +50,7 @@ const register=(acno,uname,pswd)=>{
         acno:acno,
         username:uname,
         password:pswd,
-        balance:bal,
+        balance:0,
         transaction:[]
       })
       newUser.save()//save data to mongodb
@@ -124,28 +124,21 @@ const login=(acno,pswd)=>{
 }
 const deposit=(acno, pswd,amount)=>{
   amount=parseInt(amount);
-  return db.User.findOne({acno,pswd,bal})//data
+  return db.User.findOne({acno,pswd})//data
   .then(user=>{
     if(user){
-       
-    }
-  })
-  if(acno in accDetails){
-    if(pswd== accDetails[acno].pswd){
-      accDetails[acno].bal+=amount;
-      accDetails[acno]['transaction'].push({
+       user.balance+=amount;
+       user.transaction.push({
         Type:'credit',Amount:amount
-      })
-      console.log(`data service ${accDetails[acno].bal}`);
-      
-      return {
-        status:true,
-        statusCode:200,
-        message:`${amount}is credited and balance :${accDetails[acno]['bal']}`
-      }
+       })
+        user.save();
+        return {
+          status:true,
+          statusCode:200,
+          message:`${amount}is credited and balance :${user.balance}`
+        }
     }
     else{
-      // alert('Password Incorrect');
       return{
         
         "status":false,
@@ -153,61 +146,34 @@ const deposit=(acno, pswd,amount)=>{
         message:'Invalid User'
       }
     }
-  }
-  else{
-    // alert('Invalid accDetails')
-    return{
-      "status":false,
-      statusCode:400,
-      message:'Invalid User'
-    }
-  }
+  })
 }
-withdraw=(acno1,pswd1,amount1)=>{
+const withdraw=(acno,pswd,amount1)=>{
   amount1=parseInt(amount1);
-  if(acno1 in accDetails){
-    if(pswd1== accDetails[acno1].pswd){
-      if(accDetails[acno1].bal>=amount1){
-      accDetails[acno1].bal-=amount1;
-      //parsing element to transaction array
-      accDetails[acno1]['transaction'].push({
-        Type:'Debit',Amount:amount1
-      })
-      // return accDetails[acno1].bal;
-      return {
-        status:true,
-        statusCode:200,
-        message:`${amount1}is debited and balance :${accDetails[acno1]['bal']}`
-      }
-      }else{
-        // alert("insufficient balance")
-        // return false;
-        return{
-          "status":false,
-          statusCode:400,
-          message:'Insufficient balance'
+  return db.User.findOne({acno,pswd})//dat
+  .then(user=>{
+    if(user){
+    
+        user.balance-=amount1;
+        //parsing element to transaction array
+        user.transaction.push({
+          Type:'Debit',Amount:amount1
+        })
+        user.save();
+        return {
+          status:true,
+          statusCode:200,
+          message:`${amount1}is debited and balance :${user.balance}`
         }
-      }
-    }
-    else{
-      // alert('Password Incorrect');
-      // return false;
+    }else{
       return{
         "status":false,
         statusCode:400,
-        message:'Invalid Password'
+        message:'Insufficient balance'
       }
     }
-  }
-  else{
-    // alert('Invalid accDetails')
-    // return false;
-    return{
-      "status":false,
-      statusCode:400,
-      message:'Invalid User'
-    }
-  }
+  })
+  
 }
 
 getTransaction=(acno)=>{
