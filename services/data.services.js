@@ -70,14 +70,17 @@ const login=(acno,pswd)=>{
   return db.User.findOne({acno,password:pswd})//data
     .then(user=>{
       if(user){
-        currentUser=user.uname;
+        currentUser=user.username;
+        console.log(`db${currentUser}`);
         currentAcno=acno
       const token =jwt.sign({currentAcno:acno},'superkey')
       return{
         "status":true,
         statusCode:200,
         message:'Login Success',
-        token:token
+        token:token,
+        currentUser:user.username,
+        currentAcno:acno,
       }
       }else{
         return{

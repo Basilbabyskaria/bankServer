@@ -3,6 +3,11 @@
 // // 1.import express 
 //   const { application } = require('express')
 const express=require('express');
+//import cors
+const cors=require('cors');
+//gives command to share data via cores 
+
+
 
 const dataservices=require('./services/data.services')//import dataservice
 // const res = require('express/lib/response');
@@ -12,6 +17,11 @@ const jwt=require('jsonwebtoken')
 
 //to parse json from req body
 app.use(express.json())//type conversion
+//gives command to share data via cores 
+
+app.use(cors({
+    origin:'http://localhost:4200'
+}))
 
 
  

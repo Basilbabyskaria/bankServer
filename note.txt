@@ -50,6 +50,28 @@ basic steps
     2.router sepecific middleware
 
 
-   Database integration
+12. Database integration
     
     1.instal mongoose ->npm i mongoose
+
+13.Asynchronus function resolving -promise
+
+     1.Resolve state -.then()
+     2.reject state -catch()
+     
+14.CORS -cross origin resource sharing 
+     install cors-npm i cors
+
+     port 4200(angular)  ------->req------->3000(node)
+     (node)(receive)
+
+asynchonous call -RxJs -(reactive extenshion for javascript)
+
+
+js-promise
+ts-RxJs(library)
+
+  1.observable (methodes)
+
+    a.resolved-subscribe()
+    b.reject -catch
