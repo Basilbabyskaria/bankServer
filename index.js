@@ -126,7 +126,7 @@ app.post('/deposit',jwtMiddleware,(req,res)=>{
 
 app.post('/withdraw',jwtMiddleware,(req,res)=>{
     console.log(req.body);
-   dataservices.withdraw(req.body.acno,req.body.pswd,req.body.amount1)
+   dataservices.withdraw(req.body.acno1,req.body.pswd1,req.body.amount1)
    .then(result=>{
     res.status(result.statusCode).json(result)
    })
