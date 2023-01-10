@@ -150,3 +150,14 @@ app.post('/transaction',jwtMiddleware,(req,res)=>{
 //     // next();
 // }
 // app.use(appMiddleware)
+
+//delete
+app.delete('/deleteAcc/:acno',(req,res)=>{
+    console.log(req.body);
+   dataservices.deleteAcc(req.params.acno)//params ass parameter is passed (acno) 
+   .then(result=>{
+   res.status(result.statusCode).json(result)
+   })
+    // res.send('login success')
+    
+})

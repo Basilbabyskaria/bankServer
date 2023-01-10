@@ -180,16 +180,49 @@ const withdraw=(acno,pswd,amount1)=>{
 }
 
 getTransaction=(acno)=>{
-  return{
-    status:true,
-    statusCode:200,
-    transaction:accDetails[acno].transaction
+  return db.User.findOne({acno})
+  .then(user=>{
+    if(user){
+      return{
+        status:true,
+        statusCode:200,
+        transaction:user.transaction
+      }
+    }else{
+      return{
+        status:false,
+        statusCode:400,
+        message:'User not found'
+      }
+    }
+  })
+  
+}
+
+//delete
+const deleteAcc=(acno)=>{
+ return db.User.deleteOne({acno})
+ .then(user=>{
+  if(user){
+    return{
+      status:true,
+      statusCode:200,
+      message:'User deleted'
+    }
+  }else{
+    return{
+      status:false,
+      statusCode:400,
+      message:'User not found'
+    }
   }
+ })
 }
 module.exports={
     register,
     login,
     deposit,
     withdraw,
-    getTransaction
+    getTransaction,
+    deleteAcc
 }
